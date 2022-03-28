@@ -45,4 +45,7 @@ class User extends Authenticatable
     public function regionals(){
         return $this->hasMany(Regional::class);
     }
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

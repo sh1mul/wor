@@ -1,9 +1,8 @@
-<section class="my-5">
     <div class="container mx-auto">
         <div class="grid grid-cols-4 gap-20 relative">
             {{-- Sidebar/Divisional Word --}}
             <div class="bg-green-50 border h-screen sticky top-10 block overflow-hidden  bottom-0">
-                <h3 class="text-2xl  text-red p-2 bg-green-100"><span class="text-green underline">{{$word->division->name}}</span> বিভাগের অন্যান্য শব্দ</h3>
+                <h3 class="text-2xl  text-red p-2 bg-green-100"><a href="{{route('division.page',[$word->division->slug])}}" class="text-green underline">{{$word->division->name}}</a> বিভাগের অন্যান্য শব্দ</h3>
                 <ul class="my-5 bg-green-50">
                     @foreach ($division_word as $relative)
                         <li class=" border-b px-2 py-2"><a class="text-2xl text-green-900" href="{{route('single.word',[$relative->word])}}">{{$relative->word}}</a> প্রমিতঃ {{$relative->standard->word}}</li>
@@ -21,16 +20,13 @@
 
                     </div>
                     <div class="user flex justify-end items-center gap-3 text-xl">
-                        <a class="text-green font-bold"href="#">{{$word->user->name}}
-                            @if ($word->user->avatar != NULL)
+                        <a class="text-green font-bold"href="{{route('user.profile',[$word->user->username])}}">{{$word->user->name}}
+                         @if ($word->user->avatar != NULL)
                             @if (Storage::disk('public')->exists($word->user->avatar))
                             <img class="w-12 h-12 shadow-2xl rounded-full object-cover inline-block p-1 border border-green" src="{{asset('storage/'.$word->user->avatar)}}" alt="{{$word->word}}">
                             @endif
-
                         @else
-
-                                <img class="w-12 h-12 rounded-full object-cover p-1 border border-green" src="{{asset('images/tree.png')}}">
-
+                            <img class="w-12 h-12 rounded-full object-cover p-1 border border-green" src="{{asset('images/tree.png')}}">
                         @endif
                         </a>
                         <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -61,11 +57,11 @@
                         @auth
                         <livewire:like :word="$word"/>
                         @else
-                        <a href="{{route('login')}}" ><i class="fa-solid fa-thumbs-up"></i></a>
+                        <a href="{{route('login')}}" ><i class="fa-solid fa-heart"></i></a>
                         @endauth
 
-                        <span ><i class="fa-solid fa-comment"></i></span>
-                        <span ><i class="fa-solid fa-share-nodes"></i></span>
+                    <x-add-word-plus/>
+                    <x-share-icon/>
                     </div>
                     <hr class="h-1">
                 </div>
@@ -78,10 +74,10 @@
                         <p class="text-xl place-items-end">{{$word->description}}</p>
                     </div>
                     <div class="flex justify-start gap-3 items-center">
-                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="#">{{$word->division->name}}</a>
-                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="#">{{$word->district->name}}</a>
-                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="#">{{$word->upazila->name}}</a>
-                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="#">{{$word->union->name}}</a>
+                        <a class="bg-green-white text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="{{route('division.page',[$word->division->slug])}}">{{$word->division->name}}</a>
+                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="{{route('division.page',[$word->division->slug])}}">{{$word->district->name}}</a>
+                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="{{route('division.page',[$word->division->slug])}}">{{$word->upazila->name}}</a>
+                        <a class="bg-green-50 text-green-900 p-1 shadow-sm hover:text-white hover:bg-green hover:ease-in duration-300 shadow-gray-400 rounded-full" href="{{route('division.page',[$word->division->slug])}}">{{$word->union->name}}</a>
                     </div>
 
                 </div>
@@ -109,7 +105,7 @@
                 <div class="p-1 flex justify-between gap-2 text-lg">
 
                     <div class="col-span-2 flex items-center">
-                        <a class="text-green" href="#">
+                        <a class="text-green" href="{{route('user.profile',[$comment->user->username])}}">
                             @if ($comment->user->avatar != NULL)
                                 @if (Storage::disk('public')->exists($comment->user->avatar))
                                 <img class="w-8 h-8 rounded-full object-cover border border-red p-1 inline-block" src="{{asset('storage/'.$comment->user->avatar)}}" alt="{{$comment->user->name}}">
@@ -137,4 +133,3 @@
             </div>
         </div>
     </div>
-</section>

@@ -9,6 +9,8 @@ class Division extends Model
 {
     use HasFactory;
 
+    //protected $primaryKey = 'slug';
+
     public function regionals(){
         return $this->hasMany(Regional::class);
     }

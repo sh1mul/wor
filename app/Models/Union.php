@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Union extends Model
 {
     use HasFactory;
+
+    public function regionals(){
+        return $this->hasMany(Regional::class);
+    }
 }

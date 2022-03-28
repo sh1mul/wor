@@ -18,6 +18,11 @@ class Regional extends Model
         'english',
     ];
 
+    public function regionalDescOrder($query)
+    {
+            return $query->orderBy('created_at','DESC');
+    }
+
     public function likes(){
         return $this->hasMany(RegionalLike::class);
     }
